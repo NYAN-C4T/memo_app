@@ -1,13 +1,14 @@
-$(function() {
+$(function () {
   function buildHTML(todo) {
-    var html = $('<li class="todo">').append(todo.content);
+    var html = $('.todo-child').append(todo.content);
     return html;
   }
 
-  $('.js-form').on('submit', function(e) {
+  $('.js-submit').on('click', function (e) {
     e.preventDefault();
-    var textField = $('.js-form__text-field');
-    var todo = textField.val();
+    var keyword = $('.js-form__text-field')
+    var todo = keyword.val();
+
     $.ajax({
       type: 'POST',
       url: '/todos.json',
@@ -18,13 +19,13 @@ $(function() {
       },
       dataType: 'json'
     })
-    .done(function(data) {
-      var html = buildHTML(data);
-      $('.todos').append(html);
-      textField.val('');
-    })
-    .fail(function() {
-      alert('error');
-    });
+      .done(function (data) {
+        var html = buildHTML(data)
+        $('.todos').append(html);
+        keyword.val('');
+      })
+      .fail(function () {
+        alert('error!');
+      });
   });
 });
